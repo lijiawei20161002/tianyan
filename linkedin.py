@@ -57,6 +57,25 @@ def craw(url,p):
         else:
             s1 = ''
 
+    #extract loaction
+    loc=[]
+    s = str(soup.body).split('data')[79].split('</code')[0]
+    s1 = s
+    #print(s)
+    while (len(s1) > 0):
+        ss = s1.split('subline', 1)
+        if (len(ss) > 1):
+            s1 = ss[1]
+            sss = ss[1].split('}')[0].split('text":"')
+            if ((len(sss) > 1)):
+                sss = sss[1].split('"')[0].encode('iso-8859-1').decode('utf-8')
+                loc.append(sss)
+        else:
+            s1 = ''
+    #l1=loc[0:3]
+    #l2=loc[6:14]
+    #loc=l1+l2
+
     # extract position
     pos = []
     s = str(soup.body).split('data')[79].split('</code')[0]
@@ -71,7 +90,7 @@ def craw(url,p):
                 pos.append(sss)
         else:
             s1 = ''
-
+            
     #extract link
     link=[]
     s=str(soup.body).split('data')[79].split('</code')[0]
@@ -92,12 +111,22 @@ def craw(url,p):
     new_worksheet = new_workbook.get_sheet(0)
     for i in range(0,len(link)):
         new_worksheet.write(oldrow+i,0,name[i])
-        new_worksheet.write(oldrow+i,1,pos[i])
-        new_worksheet.write(oldrow+i,2,link[i])
+        new_worksheet.write(oldrow + i, 1, loc[i])
+        new_worksheet.write(oldrow+i,2,pos[i])
+        new_worksheet.write(oldrow+i,3,link[i])
     new_workbook.save('linkedin.xls')
 
+    '''
+    workbook = xlwt.Workbook()
+    sheet1 = workbook.add_sheet('linkedin', cell_overwrite_ok=True)
+    for i in range(0, len(name)):
+        sheet1.write(i, 0, name[i])
+        sheet1.write(i,1,loc[i])
+        sheet1.write(i,2,pos[i])
+        sheet1.write(i,3,link[i])
+    workbook.save('linkedin.xls')'''
 
 if __name__ ==  '__main__':
-    url = 'https://www.linkedin.com/search/results/all/?keywords=investment%20fund%20TMT&origin=GLOBAL_SEARCH_HEADER'
-    for p in range(51,61):
+    url = 'https://www.linkedin.com/search/results/all/?keywords=USD%20fund%20TMT&origin=GLOBAL_SEARCH_HEADER'
+    for p in range(46,47):
         craw(url,p)
