@@ -13,6 +13,7 @@ headers = {
             'Cache-Control': 'max-age=0',
             'Upgrade-Insecure-Requests': '1',
             'User-Agent': r'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+            'Content-Language': 'zh-CN',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
             'Referer': 'https://www.tianyancha.com/',#'https://www.tianyancha.com/search?key=%E5%B1%B1%E4%B8%9C%20%E7%A7%91%E6%8A%80',
             'Accept-Encoding': 'gzip, deflate, br',
@@ -182,9 +183,6 @@ if __name__ ==  '__main__':
 
     for x in range(startx,num):
         url = r'https://www.tianyancha.com/search?key=%E5%9F%BA%E9%87%91&base=sc'
-        #url = r'https://www.tianyancha.com/search/p{}?key={}'.format(x,key_word)
-#        print(r'https://www.tianyancha.com/search/p{}?key={}'.format(x,key_word))
-#        url = r'https://www.tianyancha.com/search/p2?key=%E5%B1%B1%E4%B8%9C%20%E7%A7%91%E6%8A%80'
         s1 = craw(url,key_word,x,0)
         time.sleep(random.randint(1,3))
 
